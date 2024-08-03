@@ -1,6 +1,8 @@
 # DNS Zone Sync Script
 
-This Python script is designed to synchronize DNS zones from AWS Route53 to a local BIND server. It handles exporting zones from Route53, validating and constructing zone files, backing up existing zone files, replacing and reloading BIND zones, and validating DNS records.
+This Python script is designed to synchronize DNS zones from AWS Route53 to a local BIND server. <br>
+It handles exporting zones from Route53, validating and constructing zone files, backing up existing zone files, <br>
+replacing and reloading BIND zones, and validating DNS records.
 
 ## Features
 
@@ -12,6 +14,9 @@ This Python script is designed to synchronize DNS zones from AWS Route53 to a lo
 - **BIND Zone Replacement and Reload:** Replaces the existing BIND zone file with the newly constructed one and reloads the DNS server.
 - **DNS Record Validation:** Validates the DNS records by resolving them locally and sends an alert to an SNS topic if any validation fails.
 - **Logging:** Provides detailed logging throughout the process for easy troubleshooting and monitoring.
+
+## Sequence Diagram
+![Sequence_Diagram.png](Sequence_Diagram.png)
 
 ## Requirements
 
