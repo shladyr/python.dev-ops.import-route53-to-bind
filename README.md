@@ -16,7 +16,7 @@ replacing and reloading BIND zones, and validating DNS records.
 - **Logging:** Provides detailed logging throughout the process for easy troubleshooting and monitoring.
 
 ## Sequence Diagram
-![Sequence_Diagram.png](Sequence_Diagram.png)
+![Sequence_Diagram.png](docs/Sequence_Diagram.png)
 
 ## Requirements
 
@@ -85,8 +85,11 @@ python dns_sync.py [--debug] [--timestamp TIMESTAMP]
 7. **Validate DNS Records:** 
     - The script performs DNS lookups for a list of specified records to ensure they resolve correctly. If any record fails to resolve, an error is logged, and an alert is sent to the specified SNS topic. The script will exit after sending the alert.
 
+## Components Diagram
+![Component_Diagram.png](docs/Component_Diagram.png)
+
 ## Relationship Diagram
-![Relationship_Diagram.png](Relationship_Diagram.png)
+![Relationship_Diagram.png](docs/Relationship_Diagram.png)
 
 ## Error Handling
 
