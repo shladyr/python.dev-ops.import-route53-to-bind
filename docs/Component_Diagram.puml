@@ -1,0 +1,57 @@
+@startuml
+skinparam handwritten true
+skinparam shadowing false
+
+' Define colors for different groups
+skinparam rectangle {
+    BackgroundColor LightYellow
+    BorderColor Black
+    FontColor Black
+}
+skinparam cloud {
+    BackgroundColor Orange
+    BorderColor Black
+    FontColor Black
+}
+skinparam arrow {
+    Color DeepSkyBlue
+    FontColor Red
+}
+
+left to right direction
+
+' Define components
+cloud "AWS Route 53" as route53
+
+rectangle "Dynamic Files" as dynamic_files #LightGreen {
+    entity "/opt/script/company-exported.zone" as exported_zone
+    entity "/opt/script/company-constructed.zone" as constructed_zone
+    entity "/opt/aws-s3-backup/company.27032024" as backup_zone
+}
+
+rectangle "Static Files" as static_files #LightCyan {
+    entity "/opt/script/company.template" as company_template
+    entity "/etc/bind/master/company.com" as bind_master
+    entity "/etc/bind/named.conf" as named_conf
+}
+
+rectangle "Operation Files" as operation_files #LightYellow {
+    entity "/opt/script/route53sync" as route53_sync
+    entity "~/.aws/credentials" as aws_credentials
+    entity "/tmp/route53.lock" as route53_lock
+    entity "/opt/script/route53.log" as route53_log
+}
+
+' Define relationships
+route53 --> exported_zone : export
+aws_credentials --> route53_sync : auth
+route53_lock <-- route53_sync : lock
+route53_sync --> route53_log : log
+exported_zone --> constructed_zone : append
+constructed_zone --> constructed_zone : sed
+bind_master --> backup_zone : backup
+constructed_zone <-- company_template : cat
+constructed_zone --> bind_master : replace
+named_conf --> named_conf : check
+
+@enduml
